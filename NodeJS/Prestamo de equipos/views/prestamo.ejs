@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestamo</title>
+</head>
+<body>
+    <div id="Title">
+        <h1>LABORATORIO DE REDES INDUSTRIALES</h1>
+    </div>
+    <div id="SubTitle1">
+        <h2>Plataforma de prestamo de equipos</h2>
+    </div>
+
+    <div id="menu1">
+        <form action="/prestamo" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <label for="Name">Nombre Persona</label>
+                        <input type="text" name="Name" id="Name" placeholder="Nombre">
+                    </td>
+                    <td>
+                        <label for="mail">Correo educativo</label>
+                        <input type="text" name="mail" id="mail" placeholder="mail@epn.edu.ec">
+                    </td>
+                    <td>
+                        <label for="dev_model">Modelo del equipo</label>
+                        <input type="text" name="dev_model" id="dev_model" placeholder="Siemens 1214">
+                    </td>
+                    <td>
+                        <label for="dev_ip">IP del dispositivo</label>
+                        <input type="text" name="dev_ip" id="dev_ip" placeholder="1.1.1.1">
+                    </td>
+                    <td>
+                        <label for="dev_st">Estado del dispositivo</label>
+                        <input type="text" name="dev_st" id="dev_st" placeholder="OK/Mal estado">
+                    </td>
+                    <td>
+                        <button type="submit">Ingresar prestamo</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+    <% if (state=="Dato insertado"){%>
+        <div>
+            <h2>Dato ingresado correctamente</h2>
+            <h3>Dato ingresado</h3>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Modelo</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr>
+                    <td>
+                        <%= data.Nombre%>
+                    </td>
+                    <td>
+                        <%= data.Modelo%>
+                    </td>
+                    <td>
+                        <%= data.Estado%>
+                    </td>
+                    <td>
+                        <%= data.Fecha%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <form action="/" method="get">
+                <button type="submit">Regresar</button>
+            </form> 
+        </div>
+    <%}else if(state=="Dato no insertado"){%>
+        <div>
+            <h1>Dato no insertado, Intente nuevamente</h1>
+        </div>
+        <div>
+            <form action="/" method="get">
+                <button type="submit">Regresar</button>
+            </form> 
+        </div>
+    <%}else{%>
+        <div>
+            <h2>Insertar todos los datos</h2>
+        </div>
+        <div>
+            <form action="/" method="get">
+                <button type="submit">Regresar</button>
+            </form> 
+        </div>
+    <%}%>
+</body>
+</html>

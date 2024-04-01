@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar detalle</title>
+</head>
+<body>
+    <% if (user == 'Admin') {%>
+    <div>
+        <h3>Escoja que datos quiere mostrar</h3>
+    </div>
+    <div>
+        <form action="/mostrar_detalle2" method="post">
+            <label for="option">Estado de prestamo</label>
+            <input list="option" name="option">
+            <datalist id="option">
+                <option value="Prestado">
+                <option value="Devuelto">
+                <option value="Todos">
+            </datalist>
+            <button type="submit">OK</button>
+        </form>
+    </div>
+    <%}else{%>
+    <div>
+        <h2>Laboratorio de Redes industriales</h2>
+        <br>
+        <h3>Plataforma de equipos</h3>
+    </div>
+    <%}%>
+
+    <% if (data.length>0) {%>
+        <div>
+            <table id="table_data">
+                <tr>
+                    <th>Nombre Persona</th>
+                    <th>Correo educativo</th>
+                    <th>Modelo del equipo</th>
+                    <th>IP del dispositivo</th>
+                    <th>Estado del dispositivo</th>
+                    <th>Fecha</th>
+                    <th>Estado del prestamo</th>
+                </tr>
+
+                <% for (let i=0;i<data.length;i++) {%>
+                    <tr>
+                        <td><%= data[i].Nombre%></td>
+                        <td><%= data[i].email%></td>
+                        <td><%= data[i].Modelo%></td>
+                        <td><%= data[i].Direccion_IP%></td>
+                        <td><%= data[i].Estado%></td>
+                        <td><%= data[i].Fecha%></td>
+                        <td><%= data[i].Estado_prestamo%></td>
+                    </tr>
+                <%}%>
+            </table>
+        </div>
+        <div>
+            <button onclick="ExportToExcel('xlsx')">Exportar a excel</button>
+        </div>
+        <script>
+            function ExportToExcel(type, fn, dl) {
+                var elt = document.getElementById('table_data');
+                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                return dl ?
+                  XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                  XLSX.writeFile(wb, fn || ('data.' + (type || 'xlsx')));
+             }
+        </script>
+    <%}%>
+
+    <div>
+        <form action="/" method="get">
+            <button type="submit">Regresar</button>
+        </form> 
+    </div>
+</body>
+</html>
